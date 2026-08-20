@@ -1,0 +1,29 @@
+name: CI Tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Broken Test
+        run: |
+          echo "Running unit tests..."
+          node -e '
+            // ❌ Intentional Bug: Subtracts instead of adding
+            function add(a, b) {
+              return a - b;
+            }
+
+            console.log("Testing add(2, 3)...");
+            if (add(2, 3) !== 5) {
+              console.error("AssertionError: add(2, 3) returned " + add(2, 3) + ", expected 5");
+              process.exit(1);
+            }
+          '
