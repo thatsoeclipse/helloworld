@@ -1,14 +1,14 @@
-# Make Sure to set the GEMINI_API_KEY secret in your repository settings for this workflow to function correctly.
-name: AntigravityCI
+# Make sure to set the GEMINI_API_KEY secret in your repository settings
+name: OrbitCI
 
 on:
   issue_comment:
     types: [created]
 
 jobs:
-  antigravity:
-    name: AntigravityCI PR Assistant
-    if: ${{ github.event.issue.pull_request && !endsWith(github.actor, '[bot]') && (contains(github.event.comment.body, 'antigravity') || contains(github.event.comment.body, 'AntiGravity') || contains(github.event.comment.body, 'Antigravity')) }}
+  orbit:
+    name: OrbitCI PR Assistant
+    if: ${{ github.event.issue.pull_request && !endsWith(github.actor, '[bot]') && (contains(github.event.comment.body, 'orbit') || contains(github.event.comment.body, 'Orbit') || contains(github.event.comment.body, 'antigravity')) }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,8 +20,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run AntigravityCI
-        uses: nivinvysakh/AntigravityCi@feature/rewrite-js
+      - name: Run OrbitCI
+        uses: nivinvysakh/OrbitCi@feature/rewrite-js
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
